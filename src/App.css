@@ -1,0 +1,302 @@
+.navbar {
+  background-color: rgb(179, 219, 200);
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+}
+
+.navbar .left-section {
+  width: 208px;
+}
+
+.navbar .navbar-link {
+  display: inline-block;
+  padding: 6px 9.5px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.navbar .navbar-link:hover {
+  border: 1px solid white;
+}
+
+.navbar .logo {
+  height:200px;
+  margin-top: 1px;
+}
+
+.navbar .mobile-logo {
+  display: none;
+}
+
+@media (max-width: 675px) {
+  .navbar .logo {
+    display: none;
+  }
+
+  .navbar .mobile-logo {
+    display: block;
+    height: 26px;
+    margin-top: 1px;
+  }
+}
+
+.navbar .middle-section {
+  flex: 1;
+  max-width: 850px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+}
+
+.navbar .search-bar {
+  flex: 1;
+  width: 0;
+  font-size: 16px;
+  height: 38px;
+  padding-left: 15px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.navbar .search-button {
+  background-color: rgb(186, 255, 190);
+  border: none;
+  width: 45px;
+  height: 40px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  flex-shrink: 0;
+}
+
+.navbar .search-icon {
+  height: 20px;
+  margin-left: 0px;
+  margin-top: 3px;
+}
+
+.navbar .right-section {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: end;
+}
+
+.navbar .orders-link {
+  color:  rgb(255, 165, 0);
+
+  display: flex;
+  align-items: center;
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+.navbar .orders-text {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.navbar .cart-link {
+  color: rgb(255, 165, 0);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navbar .cart-icon {
+  
+  width: 38px;
+}
+
+.navbar .cart-text {
+  margin-left: 5px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.navbar .cart-quantity {
+  color: rgb(8, 79, 45);
+  font-size: 14px;
+  font-weight: 700;
+
+  position: absolute;
+  top: 8.5px;
+  right: 46px;
+
+  width: 26px;
+  text-align: center;
+}
+
+.home-page {
+  margin-top: 60px;
+}
+
+.home-page .products-grid {
+  display: grid;
+
+  /* - In CSS Grid, 1fr means a column will take up the
+       remaining space in the grid.
+     - If we write 1fr 1fr ... 1fr; 8 times, this will
+       divide the grid into 8 columns, each taking up an
+       equal amount of the space.
+     - repeat(8, 1fr); is a shortcut for repeating "1fr"
+       8 times (instead of typing out "1fr" 8 times).
+       repeat(...) is a special property that works with
+       display: grid; */
+  grid-template-columns: repeat(8, 1fr);
+}
+
+/* @media is used to create responsive design (making the
+   website look good on any screen size). This @media
+   means when the screen width is 2000px or less, we
+   will divide the grid into 7 columns instead of 8. */
+@media (max-width: 2000px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+/* This @media means when the screen width is 1600px or
+   less, we will divide the grid into 6 columns. */
+@media (max-width: 1600px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 1300px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1000px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .home-page .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .home-page .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-page .product-container {
+  padding-top: 40px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  border-right: 1px solid rgb(240, 240, 240);
+  border-bottom: 1px solid rgb(240, 240, 240);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page .product-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 180px;
+  margin-bottom: 20px;
+}
+
+.home-page .product-image {
+  /* Images overflow the container by default. To prevent this, set
+     max-width and max-height to 100% to stay inside container. */
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+}
+
+.home-page .product-name {
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.home-page .product-rating-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.home-page .product-rating-stars {
+  width: 100px;
+  margin-right: 6px;
+}
+
+.home-page .product-rating-count {
+  color: rgb(25, 135, 84);
+  cursor: auto;
+  margin-top: 3px;
+}
+
+.home-page .product-price {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.home-page .product-quantity-container {
+  margin-bottom: 17px;
+}
+
+.home-page .product-spacer {
+  flex: 1;
+}
+
+.home-page .added-to-cart {
+  color: rgb(25, 135, 84);
+  font-size: 16px;
+
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  /* At first, the "Added to cart" message will
+     be invisible. Use JavaScript to change the
+     opacity and make it visible. */
+  opacity: 0;
+}
+
+.home-page .added-to-cart img {
+  height: 19px;
+  margin-right: 6px;
+}
+
+.home-page .add-to-cart-button {
+  width: 100%;
+  padding: 8px;
+  height: 34px;
+  margin-top: 1px;
+}
