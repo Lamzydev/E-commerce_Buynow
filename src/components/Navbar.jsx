@@ -1,6 +1,8 @@
 import { Link } from 'react-router'
 
  function Navbar() {
+ 
+
   return (
     <div className="navbar">
       <div className="left-section">

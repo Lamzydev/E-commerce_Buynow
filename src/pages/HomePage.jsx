@@ -1,23 +1,28 @@
 //  import axios from 'axios';
 //  import {useEffect, useState } from 'react';
+ import Navbar from '../components/Navbar.jsx';
 import {products} from '../data/products.js';
+
  import '../App.css' 
 
 
 
  export function HomePage() {
+
+
 // const [products, setProducts] = useState([]);
 
 //    useEffect(() => {
-// axios.get('https://localhost:3000/api/products')
+// // axios.get('https://localhost:3000/api/products')
 //    .then((response) => {
 //      setProducts(response.data);
-//     })
+//     }) 
   //  },[]);
-
+  
+    
   return (
     <>
-  
+    <Navbar cartItems />  
     <div className="home-page">
       <div className="products-grid">
         
