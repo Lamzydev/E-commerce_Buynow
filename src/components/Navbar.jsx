@@ -7,8 +7,7 @@ import { Link } from 'react-router'
         <Link to="/" className="navbar-link">
           <img className="logo"
             src="images/buynow.png" />
-          <img class="mobile-logo"
-            src="images/mobile-logo-white.png" />
+          
         </Link>
       </div>
 

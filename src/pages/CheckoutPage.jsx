@@ -1,21 +1,24 @@
 import '../App.css';
+import {Link} from 'react-router'; 
 
 export function CheckoutPage() {
   return (
 
     <>
+   
+    
      <div className="checkout-header">
       <div className="header-content">
         <div className="checkout-header-left-section">
-          <a href="/">
+          <Link to="/">
             <img className="logo" src="images/buynow.png" />
-            <img className="mobile-logo" src="images/mobile-logo.png" />
-          </a>
+          </Link>
         </div>
 
         <div className="checkout-header-middle-section">
-          Checkout (<a className="return-to-home-link"
-            href="/">3 items</a>)
+          Checkout (<Link className="return-to-home-link" to="/">
+            3 items
+          </Link>)
         </div>
 
         <div className="checkout-header-right-section">
