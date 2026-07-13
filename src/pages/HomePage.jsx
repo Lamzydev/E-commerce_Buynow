@@ -13,7 +13,7 @@ import {products} from '../data/products.js';
 //    .then((response) => {
 //      setProducts(response.data);
 //     })
-//    },[]);
+  //  },[]);
 
   return (
     <>
