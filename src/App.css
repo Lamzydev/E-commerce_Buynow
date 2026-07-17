@@ -302,7 +302,7 @@
 }
 
 .checkout-header {
-  height: 60px;
+  height: 100px;
   padding-left: 30px;
   padding-right: 30px;
   background-color: white;
@@ -330,7 +330,7 @@
 }
 
 .checkout-header .logo {
-  height: 200px;
+  height: 80px;
   margin-top: 0px;
 }
 
