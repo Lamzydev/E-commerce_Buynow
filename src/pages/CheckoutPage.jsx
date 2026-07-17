@@ -22,7 +22,7 @@ export function CheckoutPage({ cartItems = [], products = [] }) {
             Checkout (<Link className="return-to-home-link" to="/">
               {itemCount} item{itemCount === 1 ? '' : 's'}
             </Link>)
-          </div>
+          </div> 
 
           <div className="checkout-header-right-section">
             <img src="images/icons/checkout-lock-icon.png" />

@@ -1,7 +1,6 @@
-import { products } from '../data/products.js';
 import '../App.css';
 
-export function HomePage({ cartItems = [], addToCart }) {
+export function HomePage({ cartItems = [], addToCart, products = [] }) {
   const handleAddToCart = (productId, quantity) => {
     addToCart(productId, quantity);
   };
@@ -13,7 +12,7 @@ export function HomePage({ cartItems = [], addToCart }) {
           const isAdded = cartItems.some((item) => item.id === product.id);
 
           return (
-            <div key={product.id} className="product-container">
+             <div key={product.id} className="product-container">
               <div className="product-image-container">
                 <img className="product-image" src={product.image} />
               </div>
