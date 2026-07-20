@@ -1,18 +1,57 @@
+import { useEffect, useState } from 'react';
 import '../App.css';
+import axios from 'axios';
 import { Link } from 'react-router';
 
 export function CheckoutPage({ cartItems = [], products = [] }) {
-  const cartProducts = cartItems.map((item) => {
-    const product = products.find((productItem) => productItem.id === item.id);
-    return product ? { ...product, quantity: item.quantity } : null;
-  }).filter(Boolean);
+  const [selectedDeliveryOptions, setSelectedDeliveryOptions] = useState({});
+  const [paymentSummary, setPaymentSummary] = useState({
+    totalItems: 0,
+    productCostCents: 0,
+    shippingCostCents: 0,
+    totalCostBeforeTaxCents: 0,
+    taxCents: 0,
+    totalCostCents: 0,
+  });
 
-  const itemCount = cartProducts.reduce((total, product) => total + product.quantity, 0);
-  const subtotalCents = cartProducts.reduce((total, product) => total + product.priceCents * product.quantity, 0);
-  const subtotalValue = subtotalCents / 100;
-  const shippingValue = itemCount > 0 ? 4.99 : 0;
-  const estimatedTaxValue = subtotalValue * 0.1;
-  const totalValue = subtotalValue + shippingValue + estimatedTaxValue;
+  const cartProducts = cartItems
+    .map((item) => {
+      const product = products.find((productItem) => productItem.id === item.id);
+      return product ? { ...product, quantity: item.quantity } : null;
+    })
+    .filter(Boolean);
+
+  const updateDeliveryOption = async (productId, deliveryOptionId) => {
+    try {
+      await axios.put(`http://localhost:3000/api/cart-items/${productId}`, {
+        deliveryOptionId,
+      });
+      setSelectedDeliveryOptions((prev) => ({ ...prev, [productId]: deliveryOptionId }));
+      const response = await axios.get('http://localhost:3000/api/payment-summary');
+      setPaymentSummary(response.data);
+    } catch (error) {
+      console.error('Failed to update delivery option:', error);
+    }
+  };
+
+  useEffect(() => {
+    const loadPaymentSummary = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/payment-summary');
+        setPaymentSummary(response.data);
+      } catch (error) {
+        console.error('Failed to load payment summary:', error);
+      }
+    };
+
+    loadPaymentSummary();
+  }, []);
+
+  const itemCount = paymentSummary.totalItems;
+  const subtotalValue = paymentSummary.productCostCents / 100;
+  const shippingValue = paymentSummary.shippingCostCents / 100;
+  const estimatedTaxValue = paymentSummary.taxCents / 100;
+  const totalValue = paymentSummary.totalCostCents / 100;
 
   return (
     <>
@@ -57,20 +96,48 @@ export function CheckoutPage({ cartItems = [], products = [] }) {
                       </div>
                     </div>
 
+
+                         {/* delivery options  */}
+
                     <div className="delivery-options">
                       <div className="delivery-options-title">Choose a delivery option:</div>
                       <div className="delivery-option">
-                        <input type="radio" checked className="delivery-option-input" name={`delivery-option-${product.id}`} />
+                        <input
+                          type="radio"
+                          checked={selectedDeliveryOptions[product.id] === '1' || (!selectedDeliveryOptions[product.id] && product.quantity > 0)}
+                          className="delivery-option-input"
+                          name={`delivery-option-${product.id}`}
+                          onChange={() => updateDeliveryOption(product.id, '1')}
+                        />
                         <div>
                           <div className="delivery-option-date">Tuesday, June 21</div>
                           <div className="delivery-option-price">FREE Shipping</div>
                         </div>
                       </div>
                       <div className="delivery-option">
-                        <input type="radio" className="delivery-option-input" name={`delivery-option-${product.id}`} />
+                        <input
+                          type="radio"
+                          checked={selectedDeliveryOptions[product.id] === '2'}
+                          className="delivery-option-input"
+                          name={`delivery-option-${product.id}`}
+                          onChange={() => updateDeliveryOption(product.id, '2')}
+                        />
                         <div>
                           <div className="delivery-option-date">Wednesday, June 15</div>
                           <div className="delivery-option-price">$4.99 - Shipping</div>
+                        </div>
+                      </div>
+                      <div className="delivery-option">
+                        <input
+                          type="radio"
+                          checked={selectedDeliveryOptions[product.id] === '3'}
+                          className="delivery-option-input"
+                          name={`delivery-option-${product.id}`}
+                          onChange={() => updateDeliveryOption(product.id, '3')}
+                        />
+                        <div>
+                          <div className="delivery-option-date">Monday, June 13</div>
+                          <div className="delivery-option-price">$9.99 - Shipping</div>
                         </div>
                       </div>
                     </div>
@@ -95,7 +162,7 @@ export function CheckoutPage({ cartItems = [], products = [] }) {
 
             <div className="payment-summary-row subtotal-row">
               <div>Total before tax:</div>
-              <div className="payment-summary-money">${(subtotalValue + shippingValue).toFixed(2)}</div>
+              <div className="payment-summary-money">${(paymentSummary.totalCostBeforeTaxCents / 100).toFixed(2)}</div>
             </div>
 
             <div className="payment-summary-row">
