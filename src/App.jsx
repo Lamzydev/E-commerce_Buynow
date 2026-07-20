@@ -63,7 +63,7 @@ function App() {
       <Navbar cartItems={cartItems} />
       <Routes>
         <Route path="/" element={<HomePage cartItems={cartItems} addToCart={addToCart} products={products} />} />
-        <Route path="/orders" element={<OrdersPage />} />
+        <Route path="/orders" element={<OrdersPage addToCart={addToCart} products={products} />} />
         <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} products={products} />} />
       </Routes>
     </>

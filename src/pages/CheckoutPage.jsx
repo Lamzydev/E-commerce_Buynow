@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router';
+import { PaymentSummary } from '../components/PaymentSummary.jsx';
 
 export function CheckoutPage({ cartItems = [], products = [] }) {
   const [selectedDeliveryOptions, setSelectedDeliveryOptions] = useState({});
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [paymentSummary, setPaymentSummary] = useState({
     totalItems: 0,
     productCostCents: 0,
@@ -47,11 +49,32 @@ export function CheckoutPage({ cartItems = [], products = [] }) {
     loadPaymentSummary();
   }, []);
 
+
+
   const itemCount = paymentSummary.totalItems;
   const subtotalValue = paymentSummary.productCostCents / 100;
   const shippingValue = paymentSummary.shippingCostCents / 100;
   const estimatedTaxValue = paymentSummary.taxCents / 100;
   const totalValue = paymentSummary.totalCostCents / 100;
+  const totalCostBeforeTaxValue = paymentSummary.totalCostBeforeTaxCents / 100;
+
+  const placeOrder = async () => {
+    setIsPlacingOrder(true);
+    try {
+      await axios.post('http://localhost:3000/api/orders', {
+        items: cartItems.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+          deliveryOptionId: selectedDeliveryOptions[item.id] || '1',
+        })),
+      });
+    } catch (error) {
+      console.error('Failed to place order:', error);
+      throw error;
+    } finally {
+      setIsPlacingOrder(false);
+    }
+  };
 
   return (
     <>
@@ -147,36 +170,16 @@ export function CheckoutPage({ cartItems = [], products = [] }) {
             )}
           </div>
 
-          <div className="payment-summary">
-            <div className="payment-summary-title">Payment Summary</div>
-
-            <div className="payment-summary-row">
-              <div>Items ({itemCount}):</div>
-              <div className="payment-summary-money">${subtotalValue.toFixed(2)}</div>
-            </div>
-
-            <div className="payment-summary-row">
-              <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">${shippingValue.toFixed(2)}</div>
-            </div>
-
-            <div className="payment-summary-row subtotal-row">
-              <div>Total before tax:</div>
-              <div className="payment-summary-money">${(paymentSummary.totalCostBeforeTaxCents / 100).toFixed(2)}</div>
-            </div>
-
-            <div className="payment-summary-row">
-              <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">${estimatedTaxValue.toFixed(2)}</div>
-            </div>
-
-            <div className="payment-summary-row total-row">
-              <div>Order total:</div>
-              <div className="payment-summary-money">${totalValue.toFixed(2)}</div>
-            </div>
-
-            <button className="place-order-button button-primary">Place your order</button>
-          </div>
+          <PaymentSummary
+            itemCount={itemCount}
+            subtotalValue={subtotalValue}
+            shippingValue={shippingValue}
+            estimatedTaxValue={estimatedTaxValue}
+            totalValue={totalValue}
+            totalCostBeforeTaxValue={totalCostBeforeTaxValue}
+            onPlaceOrder={placeOrder}
+            isPlacingOrder={isPlacingOrder}
+          />
         </div>
       </div>
     </>
