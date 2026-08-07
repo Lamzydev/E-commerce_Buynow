@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import axios from 'axios';
+
 
 export function PaymentSummary({ itemCount, subtotalValue, shippingValue, estimatedTaxValue, totalValue, totalCostBeforeTaxValue, onPlaceOrder, isPlacingOrder }) {
   const navigate = useNavigate();
