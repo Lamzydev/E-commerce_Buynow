@@ -1,20 +1,19 @@
 import '../App.css';
+import { products } from '../data/products';
+import Navbar from '../components/Navbar';
 
-export function HomePage({ cartItems = [], addToCart, products = [] }) {
-  const handleAddToCart = (productId, quantity) => {
-    addToCart(productId, quantity);
-  };
-
+export function HomePage() {
   return (
-    <div className="home-page">
-      <div className="products-grid">
-        {products.map((product) => {
-          const isAdded = cartItems.some((item) => item.id === product.id);
+    <>
+      <title>Ecommerce Project</title>
+      <Navbar />
 
-          return (
-             <div key={product.id} className="product-container">
+      <div className="home-page">
+        <div className="products-grid">
+          {products.map((product) => (
+            <div key={product.id} className="product-container">
               <div className="product-image-container">
-                <img className="product-image" src={product.image} />
+                <img className="product-image" src={product.image} alt={product.name} />
               </div>
 
               <div className="product-name limit-text-to-2-lines">{product.name}</div>
@@ -23,20 +22,15 @@ export function HomePage({ cartItems = [], addToCart, products = [] }) {
                 <img
                   className="product-rating-stars"
                   src={`images/ratings/rating-${product.rating.stars * 10}.png`}
+                  alt={`${product.rating.stars} stars`}
                 />
                 <div className="product-rating-count link-primary">{product.rating.count}</div>
               </div>
 
-              <div className="product-price">${(product.priceCents / 100).toFixed(2)}</div>
+               <div className="product-price">${(product.priceCents / 100).toFixed(2)}</div>
 
               <div className="product-quantity-container">
-                <select
-                  defaultValue="1"
-                  onChange={(event) => {
-                    const selectedQuantity = Number(event.target.value);
-                    product.selectedQuantity = selectedQuantity;
-                  }}
-                >
+                <select>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -52,22 +46,16 @@ export function HomePage({ cartItems = [], addToCart, products = [] }) {
 
               <div className="product-spacer"></div>
 
-              <div className="added-to-cart" style={{ opacity: isAdded ? 1 : 0 }}>
-                <img src="images/icons/checkmark.png" />
+              <div className="added-to-cart">
+                <img src="images/icons/checkmark.png" alt="checkmark" />
                 Added
               </div>
 
-              <button
-                className="add-to-cart-button button-primary"
-                type="button"
-                onClick={() => handleAddToCart(product.id, product.selectedQuantity || 1)}
-              >
-                {isAdded ? 'Added' : 'Add to Cart'}
-              </button>
+              <button className="add-to-cart-button button-primary">Add to Cart</button>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
