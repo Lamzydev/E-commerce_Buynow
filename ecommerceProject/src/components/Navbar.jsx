@@ -1,7 +1,17 @@
-import { Link } from 'react-router';
+import { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 
 function Navbar({ cartItems = [] }) {
   const cartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    navigate(query ? `/?search=${encodeURIComponent(query)}` : '/');
+  };
 
   return (
     <div className="navbar">
@@ -11,13 +21,20 @@ function Navbar({ cartItems = [] }) {
         </Link>
       </div>
 
-      <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" />
+      <form className="middle-section" onSubmit={handleSearch} role="search">
+        <input
+          className="search-bar"
+          type="search"
+          placeholder="Search products"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          aria-label="Search products"
+        />
 
-        <button className="search-button">
-          <img className="search-icon" src="images/icons/search-icon.png" />
+        <button className="search-button" type="submit" aria-label="Search">
+          <img className="search-icon" src="images/icons/search-icon.png" alt="" />
         </button>
-      </div>
+      </form>
 
       <div className="right-section">
         <Link className="orders-link navbar-link" to="/orders">

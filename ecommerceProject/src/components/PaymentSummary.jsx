@@ -42,7 +42,7 @@ export function PaymentSummary({ itemCount, subtotalValue, shippingValue, estima
         <div className="payment-summary-money">${totalValue.toFixed(2)}</div>
       </div>
 
-      <button className="place-order-button button-primary" onClick={handlePlaceOrder} disabled={isPlacingOrder}>
+      <button className="place-order-button button-primary" onClick={handlePlaceOrder} disabled={isPlacingOrder || itemCount === 0}>
         {isPlacingOrder ? 'Placing order...' : 'Place your order'}
       </button>
     </div>
