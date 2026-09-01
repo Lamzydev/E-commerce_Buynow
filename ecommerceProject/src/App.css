@@ -341,8 +341,11 @@
 }
 
 .checkout-header .logo {
-  height: 80px;
+  max-height: 60px;
+  height: auto;
+  width: auto;
   margin-top: 0px;
+  display: inline-block;
 }
 
 .checkout-header .mobile-logo {
@@ -359,12 +362,14 @@
   }
 
   .checkout-header .logo {
-    display: none;
+    display: inline-block;
+    max-height: 48px;
+    height: auto;
+    width: auto;
   }
 
   .checkout-header .mobile-logo {
-    display: inline-block;
-    height: 26px;
+    display: none;
   }
 }
 
@@ -889,7 +894,9 @@
 }
 
 .checkout-header .logo {
-  height: 26px;
+  max-height: 40px;
+  height: auto;
+  width: auto;
   margin-top: 0px;
 }
 
