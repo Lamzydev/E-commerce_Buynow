@@ -1,5 +1,6 @@
 import '../App.css';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PaymentSummary from '../components/PaymentSummary';
 
@@ -53,14 +54,14 @@ export function CheckoutPage({ cartItems = [], onPlaceOrder }) {
       <div className="checkout-header">
         <div className="header-content">
           <div className="checkout-header-left-section">
-            <a href="/">
+            <Link to="/">
               <img className="logo" src="images/logo.png" alt="logo" />
               <img className="mobile-logo" src="images/buynow.png" alt="mobile logo" />
-            </a>
+            </Link>
           </div>
 
           <div className="checkout-header-middle-section">
-            Checkout (<a className="return-to-home-link" href="/">{cartItems.length} items</a>)
+            Checkout (<Link className="return-to-home-link" to="/">{cartItems.length} items</Link>)
           </div>
 
           <div className="checkout-header-right-section">

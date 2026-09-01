@@ -1,6 +1,6 @@
 
 
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { HomePage } from './pages/HomePage';

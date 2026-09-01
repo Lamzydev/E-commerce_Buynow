@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 function Navbar({ cartItems = [] }) {
   const cartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
