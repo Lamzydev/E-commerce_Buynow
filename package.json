@@ -2,8 +2,11 @@
   "name": "ecommerce-root",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix ecommerceProject run dev",
+    "dev": "concurrently -k \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "npm --prefix ecommerceProject run dev",
-    "dev:backend": "npm --prefix ecommerce-backend run start"
+    "dev:backend": "npm --prefix ecommerce-backend run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
   }
 }

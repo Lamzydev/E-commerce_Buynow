@@ -44,13 +44,64 @@
 
 @media (max-width: 675px) {
   .navbar .logo {
-    display: none;
+    display: inline-block;
+    height: 36px;
+    width: auto;
+    margin-top: 1px;
   }
 
   .navbar .mobile-logo {
-    display: block;
-    height: 26px;
-    margin-top: 1px;
+    display: none;
+  }
+}
+
+/* Improve navbar/search layout on small screens */
+@media (max-width: 675px) {
+  .navbar {
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 60px;
+  }
+
+  .navbar .left-section,
+  .navbar .right-section {
+    width: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .middle-section {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .navbar .search-bar {
+    font-size: 14px;
+    height: 34px;
+    padding-left: 12px;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .navbar .search-button {
+    height: 34px;
+    width: 40px;
+    padding: 0;
+  }
+
+  .navbar .orders-text,
+  .navbar .cart-text {
+    display: none;
+  }
+
+  .navbar .cart-icon {
+    width: 32px;
+  }
+
+  .navbar .cart-quantity {
+    top: 6px;
+    right: 36px;
+    width: 22px;
+    font-size: 12px;
   }
 }
 
@@ -146,6 +197,13 @@
 
 .home-page {
   margin-top: 60px;
+}
+
+/* Final mobile overrides to ensure search has room */
+@media (max-width: 675px) {
+  .navbar .left-section { width: auto !important; }
+  .navbar .right-section { width: auto !important; }
+  .navbar .search-bar { flex: 1; min-width: 0; }
 }
 
 .home-page .search-results-heading,
@@ -371,6 +429,11 @@
   .checkout-header .mobile-logo {
     display: none;
   }
+}
+
+/* larger mobile logo for navbar */
+@media (max-width: 675px) {
+  .navbar .mobile-logo { display: none; }
 }
 
 .checkout-header .checkout-header-middle-section {

@@ -11,9 +11,15 @@ export function HomePage({ cartItems = [], onAddToCart }) {
   const searchTerm = searchParams.get('search') || '';
 
   useEffect(() => {
-    axios.get('/api/products', { params: searchTerm ? { search: searchTerm } : {} }).then((response) => {
-      setProducts(response.data);
-    });
+    axios
+      .get('/api/products', { params: searchTerm ? { search: searchTerm } : {} })
+      .then((response) => {
+        console.log('Loaded products:', response.data.length);
+        setProducts(response.data);
+      })
+      .catch((err) => {
+        console.error('Failed to load products via axios:', err);
+      });
   }, [searchTerm]);
 
   const handleAddToCart = async (productId) => {

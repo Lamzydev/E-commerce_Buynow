@@ -17,7 +17,7 @@ function Navbar({ cartItems = [] }) {
     <div className="navbar">
       <div className="left-section">
         <Link to="/" className="navbar-link">
-          <img className="logo" src="images/buynow.png" />
+          <img className="logo" src="images/buynow.png" alt="BuyNow logo" />
         </Link>
       </div>
 

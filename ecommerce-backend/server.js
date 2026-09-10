@@ -25,8 +25,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-app.use(cors());
+const allowedOrigin = process.env.FRONTEND_ORIGIN || '*';
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
+
+// Health check for readiness probes
+app.get('/health', (req, res) => res.status(200).send('ok'));
 
 // Serve images from the images folder
 app.use('/images', express.static(path.join(__dirname, 'images')));
