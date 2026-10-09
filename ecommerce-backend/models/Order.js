@@ -2,6 +2,10 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from './index.js';
 
 export const Order = sequelize.define('Order', {
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true
+  },
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,

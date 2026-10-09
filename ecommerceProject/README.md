@@ -1,4 +1,29 @@
-# React + Vite
+# BuyNow Ecommerce
+
+## Supabase customer accounts
+
+Create a Supabase project and set its project URL and publishable (or legacy anon) key in `ecommerceProject/.env`:
+
+```env
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-publishable-or-anon-key
+VITE_API_URL=http://localhost:3000
+```
+
+Set matching `SUPABASE_URL` and `SUPABASE_ANON_KEY` values in `ecommerce-backend/.env`, then restart both the frontend and API. The backend uses the public anon key only to verify access tokens with Supabase Auth; never put a Supabase service-role key in the browser or commit secrets.
+
+In Supabase Authentication settings, enable email/password sign-in and configure these allowed redirect URLs for local development:
+
+- `http://localhost:5173/account/sign-in`
+- `http://localhost:5173/reset-password`
+
+Add the corresponding production URLs before deployment. With email confirmation enabled, new customers receive a confirmation email before they can sign in. Configure Supabase SMTP/email delivery for production.
+
+Cart, checkout, payment summary, and order endpoints require a valid Supabase bearer token. Cart and order rows are associated with the authenticated user's Supabase UUID. Existing demo cart/order rows have no owner and are not shown to customer accounts.
+
+Run the frontend from `ecommerceProject` with `npm run dev` and the API from `ecommerce-backend` with `npm run dev`.
+
+## Original Vite notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

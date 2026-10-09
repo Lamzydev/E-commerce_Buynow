@@ -89,7 +89,8 @@
   }
 
   .navbar .orders-text,
-  .navbar .cart-text {
+  .navbar .cart-text,
+  .navbar .account-link-text {
     display: none;
   }
 

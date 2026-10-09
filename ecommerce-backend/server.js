@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
@@ -18,6 +19,7 @@ import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js'
 import { defaultCart } from './defaultData/defaultCart.js';
 import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
+import { DataTypes } from 'sequelize';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -66,6 +68,17 @@ app.use((err, req, res, next) => {
 
 // Sync database and load default data if none exist
 await sequelize.sync();
+
+const queryInterface = sequelize.getQueryInterface();
+for (const tableName of ['CartItems', 'Orders']) {
+  const columns = await queryInterface.describeTable(tableName);
+  if (!columns.userId) {
+    await queryInterface.addColumn(tableName, 'userId', {
+      type: DataTypes.UUID,
+      allowNull: true,
+    });
+  }
+}
 
 const productCount = await Product.count();
 if (productCount === 0) {
